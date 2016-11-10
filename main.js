@@ -39,7 +39,7 @@ app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
    res.status(204).end()
  }]);
 
-app.get('/meow', function(req, res) {		
+/*app.get('/meow', function(req, res) {		
  	{	
 	  	res.writeHead(200, {'content-type':'text/html'});
  		//if (err) throw err
@@ -55,6 +55,33 @@ app.get('/meow', function(req, res) {
  		})
  	}
  })
+ */
+
+app.get('/meow', function(req, res) {
+   client.get('myKey', function(err, value){
+    if(value=='OK')
+  {   
+  client.lrange('image', 0, 0, function(err, imagedata) {
+    if (imagedata == "") {
+      res.send("No images to show !")
+    }
+    else {
+      res.write("<h1>\n<img src='data:my_pic.jpg;base64,"+imagedata+"'/>");
+    }
+    
+    client.lpop('image', function(err, value) {
+      // console.log("After popping: ", value)
+      // console.log("top value removed")
+    })
+    res.end();
+  });
+}
+else
+res.send("hello")
+
+})
+    
+})
 
 // PART1: get/set methods
 app.get('/set', function(req, res) {
