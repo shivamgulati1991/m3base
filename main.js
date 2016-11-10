@@ -39,27 +39,9 @@ app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
    res.status(204).end()
  }]);
 
-/*app.get('/meow', function(req, res) {		
- 	{	
-	  	res.writeHead(200, {'content-type':'text/html'});
- 		//if (err) throw err
-		client.rpop("images",function (err,imagedata){
-			if (err) throw err;
-		
-			if (imagedata)
-			{	
-			
- 		        res.write("<h1>\n<img src='data:my_pic.jpg;base64,"+imagedata+"'/>");
-			}
-			res.end();
- 		})
- 	}
- })
- */
-
 app.get('/meow', function(req, res) {
    client.get('mykey', function(err, value){
-    if(value=='OK')
+    if(value=='ON')
   {   
   client.lrange('image', 0, 0, function(err, imagedata) {
     if (imagedata == "") {
@@ -70,14 +52,12 @@ app.get('/meow', function(req, res) {
     }
     
     client.lpop('image', function(err, value) {
-      // console.log("After popping: ", value)
-      // console.log("top value removed")
     })
     res.end();
   });
 }
 else
-res.send("hello")
+res.send("Sorry! This functionality is disabled right now.")
 
 })
     
@@ -85,7 +65,7 @@ res.send("hello")
 
 // PART1: get/set methods
 app.get('/set', function(req, res) {
-    client.set("mykey", "OK")
+    client.set("mykey", "ON")
     client.expire("mykey", 10)
     res.send("mykey has been set")
 })
