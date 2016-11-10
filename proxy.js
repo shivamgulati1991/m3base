@@ -29,10 +29,6 @@ var server = http.createServer(function(req, res) {
 
     var port = 3000;
     var tar = "http://" + prodServer + ":3000"; 
-    //var percent = Math.floor((Math.random() * 10) + 1);
-    //console.log("Number: " + percent);
-
-    //if ((percent > 7) && (!canary_status)) {
     if ((count%3 == 0 ) && (!canary_status)) {
       	port = 3000;
         tar = "http://" + canaryServer + ":3000"; 

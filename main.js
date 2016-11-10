@@ -49,6 +49,11 @@ app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
    res.status(204).end()
  }]);
 
+app.get('/undefined', function(req, res) {
+    canary_status=true
+    console.log("Alert raised. Canary server stopped.")
+});
+
 app.get('/meow', function(req, res) {
    client.get('mykey', function(err, value){
     if(value=='ON')
