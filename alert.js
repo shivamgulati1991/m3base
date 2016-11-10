@@ -9,7 +9,7 @@ var client = redis.createClient(6379, '127.0.0.1', {});
  var accountSid = 'AC3ec0213c3387d90bcf030260875d32d2';
 var authToken = '75e1b8787a6d1181298a0378051b120a';
 var twiClient = require('twilio')(accountSid, authToken);
-int i=1;
+//var i=1;
 function memoryLoad()
 {
   var total = os.totalmem();
