@@ -164,4 +164,4 @@ setInterval( function ()
   } 
 
 
-},20000);
+},6000);

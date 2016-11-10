@@ -19,8 +19,8 @@ var socket = sioc('http://' + canaryServer + ':4000');
 
 socket.on("heartbeat", function(client) {
     canary_status = client.status;
-    if ((canary_status == true) && (i == 0)) {
-        i++;
+    if (canary_status) {
+        //i++;
         console.log("Canary server failed. All requests will be sent to production server.");
     }
 });
