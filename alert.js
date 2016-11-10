@@ -43,7 +43,7 @@ setInterval( function ()
     console.error(err.message);
     }
 });
-
+  console.log("ALERT! Memory overload. SMS notification sent");
     //client.set("proxy_flag", 0);
   } 
 
@@ -56,6 +56,7 @@ setInterval( function ()
       if(err) {
     console.error(err.message);
     }
+    console.log("ALERT! CPU overload. SMS notification sent");
 });
     client.get("cpuFlag", function(err, value) {
       console.log("Flag value: ", value);
