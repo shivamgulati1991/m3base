@@ -1,0 +1,30 @@
+---
+- hosts: servers
+  become: yes
+  tasks:
+    - name: Update server
+      apt: update_cache=yes
+    - name: Installs nodejs
+      apt: pkg=nodejs state=installed update_cache=true
+    - name: Installs npm
+      apt: pkg=npm state=installed update_cache=true      
+    - name: Installs git
+      apt: pkg=git state=installed update_cache=true
+    - name: Create symlink
+      file: src=/usr/bin/nodejs dest=/usr/bin/node state=link
+    - name: Add the Redis PPA
+      apt_repository: repo='ppa:rwky/redis' update_cache=yes
+    - name: Install Redis from PPA
+      apt: pkg=redis-server state=installed
+    - name: Start Redis
+      service: name=redis-server state=started
+    - name: Intall forever globally
+      npm: name=forever global=yes state=latest
+    - name: Clone the application repo
+      git: repo=https://github.com/shivamgulati1991/m3base.git dest=~/m3base accept_hostkey=yes
+    - name: Intall dependencies
+      npm: path=~/m3base
+    - name: Source bashrc
+      shell: . ~/.bashrc
+    - name: Run server
+      command: forever start m3base/main.js 67.205.141.247
