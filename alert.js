@@ -30,7 +30,7 @@ setInterval( function ()
   var memLoad = memoryLoad();
   var cpuLoad = cpuLoadAll();
   console.log("Memory utilization: ", memLoad);
-  console.log("CPU usage: ", cpuLoad*10);
+  console.log("CPU usage: ", cpuLoad);
 
   if (memLoad > 90) {
 
@@ -47,7 +47,8 @@ setInterval( function ()
     //client.set("proxy_flag", 0);
   } 
 
-  if (cpuLoad > 20) {
+  if (cpuLoad > 10) {
+    //console.log("ALERT! CPU overload. SMS notification sent");
     twiClient.messages.create({
         from:+2024369391,
         to: +9842426510,
@@ -58,23 +59,6 @@ setInterval( function ()
     }
     console.log("ALERT! CPU overload. SMS notification sent");
 });
-    client.get("cpuFlag", function(err, value) {
-      console.log("Flag value: ", value);
-      if (value == 0) {
-        //console.log("CPU Load too much. Sending alert");
-        twiClient.sendMessage({
-            body: "EXCESS CPU USAGE",
-            to: "+9842426510",
-            from: "+8312695745"
-        }, function(err, message) {
-
-        });
-        client.set("cpuFlag", 1);
-      } else {
-        console.log("ALERT! Excess CPU Usage. Notified Ops Team");
-      }
-    });
-    client.set("proxy_flag", 0);
   }
 
 },2000);
