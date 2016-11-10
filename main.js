@@ -158,10 +158,10 @@ setInterval( function ()
   var memLoad = memoryLoad();
   //console.log("Memory utilization: ", memLoad);
 
-  if (memLoad > 95) {
+  if (memLoad > 85) {
     canary_status=true
   console.log("ALERT! Memory overload. Canary Server will be stopped.");
   } 
 
 
-},2000);
+},20000);
