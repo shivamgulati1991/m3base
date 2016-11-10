@@ -29,39 +29,21 @@ setInterval( function ()
 {
   var memLoad = memoryLoad();
   var cpuLoad = cpuLoadAll();
-  console.log("Memory: ", memLoad);
-  console.log("CPU: ", cpuLoad);
+  console.log("Memory utilization: ", memLoad);
+  console.log("CPU usage: ", cpuLoad);
 
   if (memLoad > 90) {
 
   twiClient.messages.create({
         from:+2024369391,
         to: +9842426510,
-        body: "Application Live alert! CPU or memory overload."
+        body: "Application Live alert! Memory overload."
         }, function(err, message) {
       if(err) {
     console.error(err.message);
     }
 });
 
-    client.get("memFlag", function(err, value) {
-      if (value == 0) {
-        console.log("ALERT! Excess memory usage. Notified Ops Team. here");
-        twiClient.messages.create({
-        from:+2024369391,
-        to: +9842426510,
-        body: "You just sent an SMS from Node.js using Twilio!"
-        }, function(err, message) {
-      if(err) {
-    console.error(err.message);
-    }
-});
-
-        client.set("memFlag", 1);
-      } else {
-        console.log("ALERT! Excess memory usage. Notified Ops Team.");
-      }
-    });
     //client.set("proxy_flag", 0);
   } 
 
@@ -69,29 +51,12 @@ setInterval( function ()
     twiClient.messages.create({
         from:+2024369391,
         to: +9842426510,
-        body: "Application Live alert! CPU or memory overload."
+        body: "Application Live alert! CPU usage exceeding the threshold."
         }, function(err, message) {
       if(err) {
     console.error(err.message);
     }
 });
-    client.get("cpuFlag", function(err, value) {
-      console.log("Flag value: ", value);
-      if (value == 0) {
-        //console.log("CPU Load too much. Sending alert");
-        twiClient.sendMessage({
-            body: "EXCESS CPU USAGE",
-            to: "+9842426510",
-            from: "+8312695745"
-        }, function(err, message) {
-
-        });
-        client.set("cpuFlag", 1);
-      } else {
-        console.log("ALERT! Excess CPU Usage. Notified Ops Team");
-      }
-    });
-    client.set("proxy_flag", 0);
   }
 
 },2000);
