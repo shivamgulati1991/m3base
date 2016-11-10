@@ -12,13 +12,13 @@ var startPort=parseInt(process.argv[2])
 var redis = require('redis')
 var client = redis.createClient(6379, '127.0.0.1', {})
 
-canary_fail = false;
+canary_status = false;
 
-var app1 = http.createServer(function (req, res) {
+var appCanary = http.createServer(function (req, res) {
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.end();
     })
-  , io = sio.listen(app1);
+  , io = sio.listen(appCanary);
 ///////////// WEB ROUTES
 
 // Add hook to make it easier to get all visited URLS.
@@ -137,4 +137,4 @@ app.get('/destroy', function(req, res) {
 
 })
  
-app1.listen(4006);
+appCanary.listen(4000);

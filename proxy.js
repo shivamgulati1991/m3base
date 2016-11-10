@@ -8,20 +8,18 @@ var interfaces = os.networkInterfaces();
 
 var proxy = httpProxy.createProxyServer({});
 
-var canary_fail = false;
-
+var canary_status = false;
 var i = 0;
+var count=1;
 
-var ipStable = "67.205.141.247";
-var ipCanary = "159.203.183.176";
+var prodServer = "67.205.141.247";
+var canaryServer = "159.203.183.176";
 
-var socket = sioc('http://' + ipCanary + ':4006');
-
-// var socket = sioc('http://localhost:4006');
+var socket = sioc('http://' + canaryServer + ':4000');
 
 socket.on("heartbeat", function(client) {
-    canary_fail = client.status;
-    if ((canary_fail == true) && (i == 0)) {
+    canary_status = client.status;
+    if ((canary_status == true) && (i == 0)) {
         i++;
         console.log("Canary Server Failed.");
     }
@@ -30,19 +28,22 @@ socket.on("heartbeat", function(client) {
 var server = http.createServer(function(req, res) {
 
     var port = 3000;
-    var tar = "http://" + ipStable + ":3000"; 
-    var percent = Math.floor((Math.random() * 10) + 1);
-    console.log("Number: " + percent);
+    var tar = "http://" + prodServer + ":3000"; 
+    //var percent = Math.floor((Math.random() * 10) + 1);
+    //console.log("Number: " + percent);
 
-    if ((percent > 7) && (!canary_fail)) {
-      	port = 3001;
-        tar = "http://" + ipCanary + ":3000"; 
-        console.log("Forwarding request to [CANARY - " + ipCanary + ":" + port + "].");
+    //if ((percent > 7) && (!canary_status)) {
+    if ((count%3 == 0 ) && (!canary_status)) {
+      	port = 3000;
+        tar = "http://" + canaryServer + ":3000"; 
+        console.log("Forwarding request to [Canary server - " + canaryServer + ":" + port + "].");
+	count++;
 
     } else {
         port = 3000;
-        target = "http://" + ipStable + ":3000"; 
-        console.log("Forwarding request to [STABLE - " + ipStable + ":" + port + "].");
+        target = "http://" + prodServer + ":3000"; 
+        console.log("Forwarding request to [Production Server - " + prodServer + ":" + port + "].");
+	count++;
     
     }
 
@@ -52,5 +53,5 @@ var server = http.createServer(function(req, res) {
 
 });
 
-console.log("listening on port 5050")
-server.listen(5050);
+console.log("listening on port 5000")
+server.listen(5000);
