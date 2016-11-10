@@ -153,7 +153,7 @@ appCanary.listen(4000);
 
 setInterval( function () 
 {
-  var cpuLoad = cpuLoadAll();
+  var cpuLoad = cpuLoadAll()*5;
   console.log("CPU usage: ", cpuLoad);
 
 
