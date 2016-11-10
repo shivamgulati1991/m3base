@@ -34,11 +34,12 @@ app.use(function(req, res, next)
 	next(); // Passing the request to the next handler in the stack.
 });
 
-function cpuLoadAll () {
-  var loads = os.loadavg();
-  var percentage = loads[0];
-  percentage = percentage * 100;
-  return percentage.toFixed(2);;
+function memoryLoad()
+{
+  var total = os.totalmem();
+  var load = os.totalmem() - os.freemem();
+  var percentage = (load/total)*100;
+  return percentage.toFixed(2);
 }
 
 // PART 3: upload and meow
@@ -151,14 +152,16 @@ app.get('/destroy', function(req, res) {
  
 appCanary.listen(4000);
 
+
 setInterval( function () 
 {
-  var cpuLoad = cpuLoadAll()*50;
-  console.log("CPU usage: ", cpuLoad);
+  var memLoad = memoryLoad();
+  console.log("Memory utilization: ", memLoad);
 
-
-  if (cpuLoad > 50) {
+  if (memLoad > 95) {
     canary_status=true
-    console.log("Alert raised. Canary server stopped.")
-  }
+  console.log("ALERT! Memory overload. Canary Server will be stopped.");
+  } 
+
+
 },2000);
