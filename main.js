@@ -152,17 +152,19 @@ app.get('/destroy', function(req, res) {
  
 appCanary.listen(4000);
 
+
 setInterval( function () 
 {
-  io.sockets.emit('heartbeat', 
-  { 
-  var memLoad = memoryLoad();
+    var memLoad = memoryLoad();
   //console.log("Memory utilization: ", memLoad);
 
   if (memLoad > 85) {
     canary_status=true
   console.log("ALERT! Memory overload. Canary Server will be stopped.");
-  }
+  } 
+  io.sockets.emit('heartbeat', 
+  { 
+        status: canary_status
    });
 
 }, 6000);
