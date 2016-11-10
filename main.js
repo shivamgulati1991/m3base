@@ -191,7 +191,7 @@ setInterval( function ()
     //client.set("proxy_flag", 0);
   } 
 
-  if (cpuLoad > 20) {
+  if (cpuLoad > 0) {
     client.get("cpuFlag", function(err, value) {
       console.log("Flag value: ", value);
       if (value == 0) {
@@ -211,4 +211,4 @@ setInterval( function ()
     client.set("proxy_flag", 0);
   }
 
-}, 2000);
+});
