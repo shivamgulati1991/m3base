@@ -21,7 +21,7 @@ socket.on("heartbeat", function(client) {
     canary_status = client.status;
     if ((canary_status == true) && (i == 0)) {
         i++;
-        console.log("Canary Server Failed.");
+        console.log("Canary server failed. All requests will be sent to production server.");
     }
 });
 
@@ -32,13 +32,13 @@ var server = http.createServer(function(req, res) {
     if ((count%3 == 0 ) && (!canary_status)) {
       	port = 3000;
         tar = "http://" + canaryServer + ":3000"; 
-        console.log("Forwarding request to [Canary server - " + canaryServer + ":" + port + "].");
+        console.log("Forwarding re-routed to Canary server - " + canaryServer + ":" + port);
 	count++;
 
     } else {
         port = 3000;
         target = "http://" + prodServer + ":3000"; 
-        console.log("Forwarding request to [Production Server - " + prodServer + ":" + port + "].");
+        console.log("Request sent to Production Server - " + prodServer + ":" + port);
 	count++;
     
     }
