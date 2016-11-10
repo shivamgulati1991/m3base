@@ -40,6 +40,9 @@ app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
  }]);
 
 app.get('/meow', function(req, res) {
+	client.get('myKey', function(err, value){
+		if(value=='OK')
+	{		
  	{	
 	  	res.writeHead(200, {'content-type':'text/html'});
  		//if (err) throw err
@@ -54,11 +57,15 @@ app.get('/meow', function(req, res) {
 			res.end();
  		})
  	}
+		else
+res.send("hello")
+
+})
  })
 
 // PART1: get/set methods
 app.get('/set', function(req, res) {
-    client.set("mykey", "this message will self-destruct in 10 seconds")
+    client.set("mykey", "OK")
     client.expire("mykey", 10)
     res.send("mykey has been set")
 })
