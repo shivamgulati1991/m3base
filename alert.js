@@ -47,7 +47,7 @@ setInterval( function ()
     //client.set("proxy_flag", 0);
   } 
 
-  if (cpuLoad > 50) {
+  if (cpuLoad > 20) {
     twiClient.messages.create({
         from:+2024369391,
         to: +9842426510,
