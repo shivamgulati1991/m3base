@@ -156,7 +156,7 @@ appCanary.listen(4000);
 setInterval( function () 
 {
   var memLoad = memoryLoad();
-  console.log("Memory utilization: ", memLoad);
+  //console.log("Memory utilization: ", memLoad);
 
   if (memLoad > 95) {
     canary_status=true
