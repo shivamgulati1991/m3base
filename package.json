@@ -16,6 +16,8 @@
   "dependencies": {
     "express": "^4.14.0",
     "http-proxy": "~1.12.0",
-     "twilio": "latest"
+     "twilio": "latest",
+    "socket.io": "^1.3.7",
+    "socket.io-client": "^1.3.7"
   }
 }

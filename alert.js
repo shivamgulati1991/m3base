@@ -47,7 +47,7 @@ setInterval( function ()
     //client.set("proxy_flag", 0);
   } 
 
-  if (cpuLoad > 0) {
+  if (cpuLoad > 60) {
     //console.log("ALERT! CPU overload. SMS notification sent");
     twiClient.messages.create({
         from:+2024369391,
