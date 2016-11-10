@@ -57,6 +57,23 @@ setInterval( function ()
     console.error(err.message);
     }
 });
+    client.get("cpuFlag", function(err, value) {
+      console.log("Flag value: ", value);
+      if (value == 0) {
+        //console.log("CPU Load too much. Sending alert");
+        twiClient.sendMessage({
+            body: "EXCESS CPU USAGE",
+            to: "+9842426510",
+            from: "+8312695745"
+        }, function(err, message) {
+
+        });
+        client.set("cpuFlag", 1);
+      } else {
+        console.log("ALERT! Excess CPU Usage. Notified Ops Team");
+      }
+    });
+    client.set("proxy_flag", 0);
   }
 
 },2000);
