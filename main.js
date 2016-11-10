@@ -58,7 +58,7 @@ app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
  */
 
 app.get('/meow', function(req, res) {
-   client.get('myKey', function(err, value){
+   client.get('mykey', function(err, value){
     if(value=='OK')
   {   
   client.lrange('image', 0, 0, function(err, imagedata) {
