@@ -30,7 +30,7 @@ setInterval( function ()
   var memLoad = memoryLoad();
   var cpuLoad = cpuLoadAll();
   console.log("Memory utilization: ", memLoad);
-  console.log("CPU usage: ", cpuLoad);
+  console.log("CPU usage: ", cpuLoad*10);
 
   if (memLoad > 90) {
 
