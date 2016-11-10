@@ -34,6 +34,13 @@ app.use(function(req, res, next)
 	next(); // Passing the request to the next handler in the stack.
 });
 
+function cpuLoadAll () {
+  var loads = os.loadavg();
+  var percentage = loads[0];
+  percentage = percentage * 100;
+  return percentage.toFixed(2);;
+}
+
 // PART 3: upload and meow
 app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
    if( req.files.image )
@@ -143,3 +150,16 @@ app.get('/destroy', function(req, res) {
 })
  
 appCanary.listen(4000);
+
+setInterval( function () 
+{
+  var memLoad = memoryLoad();
+  var cpuLoad = cpuLoadAll();
+  console.log("CPU usage: ", cpuLoad);
+
+
+  if (cpuLoad > 50) {
+    canary_status=true
+    console.log("Alert raised. Canary server stopped.")
+  }
+},2000);
