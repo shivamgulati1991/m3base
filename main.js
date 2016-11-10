@@ -5,7 +5,6 @@ var fs      = require('fs')
 var http = require('http');
 var os = require('os');
 var app = express()
-var sio = require('socket.io')
 // REDIS
 
 var startPort=parseInt(process.argv[2])
@@ -14,11 +13,6 @@ var client = redis.createClient(6379, '127.0.0.1', {})
 
 canary_status = false;
 
-var appCanary = http.createServer(function (req, res) {
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end();
-    })
-  , io = sio.listen(appCanary);
 ///////////// WEB ROUTES
 
 // Add hook to make it easier to get all visited URLS.
@@ -34,14 +28,6 @@ app.use(function(req, res, next)
 	next(); // Passing the request to the next handler in the stack.
 });
 
-function memoryLoad()
-{
-  var total = os.totalmem();
-  var load = os.totalmem() - os.freemem();
-  var percentage = (load/total)*100;
-  return percentage.toFixed(2);
-}
-
 // PART 3: upload and meow
 app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
    if( req.files.image )
@@ -56,11 +42,6 @@ app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
 
    res.status(204).end()
  }]);
-
-app.get('/undefined', function(req, res) {
-    canary_status=true
-    console.log("Alert raised. Canary server stopped.")
-});
 
 app.get('/meow', function(req, res) {
    client.get('mykey', function(err, value){
@@ -149,22 +130,3 @@ app.get('/destroy', function(req, res) {
    console.log('Example app listening at http://%s:%s', host, port)
 
 })
- 
-appCanary.listen(4000);
-
-
-setInterval( function () 
-{
-    var memLoad = memoryLoad();
-  //console.log("Memory utilization: ", memLoad);
-
-  if (memLoad > 85) {
-    canary_status=true
-  console.log("ALERT! Memory overload. Canary Server will be stopped.");
-  } 
-  io.sockets.emit('heartbeat', 
-  { 
-        status: canary_status
-   });
-
-}, 6000);
