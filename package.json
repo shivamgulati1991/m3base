@@ -24,7 +24,9 @@
     "mock-fs": "^3.11.0",
     "random-js": "^1.0.8",
     "underscore": "^1.8.3",
-    "jsinspect": "latest"
+    "jsinspect": "latest",
+    "needle": "^0.7.10",
+    "sleep": "latest"
   },
   "dependencies": {
     "express": "^4.14.0",
