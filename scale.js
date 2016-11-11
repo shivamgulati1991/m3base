@@ -146,8 +146,54 @@ client.createDroplet(name, region, image, function(err, resp, body)
 var resized=0;
 
 
-setInterval( function () 
+/*setInterval( function () 
 {
+  var memLoad = memoryLoad();
+  var cpuLoad = cpuLoadAll();
+  console.log("Memory utilization: ", memLoad);
+  //console.log("CPU usage: ", cpuLoad);
+
+  if (memLoad > 50) {
+
+  if(resized==0){
+  /*setTimeout(function() {
+        client.switchoffDroplet(function(error, respo)
+      {
+    if(!error)
+    {
+      //console.log("Please wait..")
+    }
+    });
+}, 1000);
+setTimeout(function() {
+    client.resizeDroplet(function(error, response)
+    {
+    //console.log(response);
+    if(!error)
+    {
+      console.log("Please wait your server is being scaled.")
+    }
+    });
+
+resized=1
+}, 1000);
+
+
+setTimeout(function() {
+            client.switchonDroplet(function(error, respo)
+      {
+    if(!error)
+    {
+      console.log("The server has been scaled.")
+    }
+    });
+}, 60000);
+}
+
+  } 
+
+},5000);*/
+
   var memLoad = memoryLoad();
   var cpuLoad = cpuLoadAll();
   console.log("Memory utilization: ", memLoad);
@@ -192,4 +238,3 @@ setTimeout(function() {
 
   } 
 
-},5000);
