@@ -153,7 +153,7 @@ setInterval( function ()
   console.log("Memory utilization: ", memLoad);
   //console.log("CPU usage: ", cpuLoad);
 
-  if (memLoad > 90) {
+  if (memLoad > 50) {
 
   if(resized==0){
   /*setTimeout(function() {
