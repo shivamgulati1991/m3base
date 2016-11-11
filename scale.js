@@ -70,7 +70,7 @@ var client =
       "type": "power_off"
     };
 
-    console.log("Attempting to resize: "+ JSON.stringify(data) );
+    console.log("Preparing for scaling." );
 
     needle.post("https://api.digitalocean.com/v2/droplets/31806733/actions", data, {headers:headers,json:true}, onResponse );
   },
@@ -82,7 +82,7 @@ var client =
       "type": "power_on"
     };
 
-    console.log("Attempting to resize: "+ JSON.stringify(data) );
+    console.log("Server has been scaled." );
 
     needle.post("https://api.digitalocean.com/v2/droplets/31806733/actions", data, {headers:headers,json:true}, onResponse );
   },
@@ -95,7 +95,7 @@ var client =
       "size":"1gb"
     };
 
-    console.log("Attempting to resize: "+ JSON.stringify(data) );
+    console.log("Server scale is in progress. ");
 
     needle.post("https://api.digitalocean.com/v2/droplets/31806733/actions", data, {headers:headers,json:true}, onResponse );
   }
