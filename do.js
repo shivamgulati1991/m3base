@@ -44,43 +44,6 @@ var client =
 		console.log("Attempting to create: "+ JSON.stringify(data) );
 
 		needle.post("https://api.digitalocean.com/v2/droplets", data, {headers:headers,json:true}, onResponse );
-	},
-
-		switchoffDroplet: function (onResponse)
-	{
-		var data = 
-		{
-			"type": "power_off"
-		};
-
-		console.log("Attempting to resize: "+ JSON.stringify(data) );
-
-		needle.post("https://api.digitalocean.com/v2/droplets/31806733/actions", data, {headers:headers,json:true}, onResponse );
-	},
-
-			switchonDroplet: function (onResponse)
-	{
-		var data = 
-		{
-			"type": "power_on"
-		};
-
-		console.log("Attempting to resize: "+ JSON.stringify(data) );
-
-		needle.post("https://api.digitalocean.com/v2/droplets/31806733/actions", data, {headers:headers,json:true}, onResponse );
-	},
-
-	resizeDroplet: function (onResponse)
-	{
-		var data = 
-		{
-			"type": "resize",
-			"size":"1gb"
-		};
-
-		console.log("Attempting to resize: "+ JSON.stringify(data) );
-
-		needle.post("https://api.digitalocean.com/v2/droplets/31806733/actions", data, {headers:headers,json:true}, onResponse );
 	}
 
 };
@@ -89,7 +52,7 @@ var client =
 
 //#3 Create an droplet with the specified name, region, and image
 
-/*var name = "sgulati2"+os.hostname();
+var name = "sgulati2"+os.hostname();
 var region = "nyc1"; // Fill one in from #1
 var image = "ubuntu-14-04-x64"; // Fill one in from #2
 var dropletId;
@@ -125,41 +88,3 @@ client.createDroplet(name, region, image, function(err, resp, body)
 	},8000);
 	}
 });
-*/
-var resized=0;
-
-if(resized==0){
-	/*setTimeout(function() {
-        client.switchoffDroplet(function(error, respo)
-			{
-		if(!error)
-		{
-			console.log("Please wait..")
-		}
-		});
-}, 1000);*/
-setTimeout(function() {
-    client.resizeDroplet(function(error, response)
-		{
-		//console.log(response);
-		if(!error)
-		{
-			console.log("Please wait your server is being scaled.")
-		}
-		});
-
-resized=1
-}, 1000);
-
-
-setTimeout(function() {
-            client.switchonDroplet(function(error, respo)
-			{
-		if(!error)
-		{
-			console.log("The server has been scaled.")
-		}
-		});
-}, 60000);
-
-}
