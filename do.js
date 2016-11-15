@@ -6,7 +6,7 @@ var fs = require('fs');
 var sleep = require('sleep');
 
 var config = {};
-config.token = "76b51a55b47db23c90ce7eadc79f821778a7d020d7afe0c835d97f2dbad6501f";  //Enter Digital Ocean token here
+config.token = "----------";  //Enter Digital Ocean token here
 
 var headers =
 {
