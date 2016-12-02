@@ -1,0 +1,8 @@
+---
+- hosts: servers
+  become: yes
+  tasks:
+    - name: Loading..
+      shell: . ~/.bashrc
+    - name: Application is back up..
+      command: forever start m3base/main.js 3000
